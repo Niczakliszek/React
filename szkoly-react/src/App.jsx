@@ -4,15 +4,28 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
-import Naglowek from './test'
-
+// import Naglowek from './test'
+import { Article } from '../../Pliki rozwiazan/03-rozwiazanie'
+import { PersonCard } from '../../Pliki rozwiazan/03-rozwiazanie'
+import { MovieList } from '../../Pliki rozwiazan/03-rozwiazanie'
 
 function App() {
-  const [count, setCount] = useState(0)
+  return (<>
+    <Article title="React 18" author="Jan" content="React jest super!" />
+    <PersonCard firstName="Bartlomiej" lastName="Guz" age="18" occupation='dla rodzicow' />
+{/* 
+    <MovieList movies={[
+	    { id: 1, title: "Inception", year: 2010, rating: 8.8 },
+	    { id: 2, title: "Avatar", year: 2009, rating: 8.5 }
+	  ]} />  NIE DZIALA */}
 
-  return (
+
+  </>)
+  // const [count, setCount] = useState(0)
+
+  /*return (
     <>
-      <section id="center">
+      { <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -121,8 +134,8 @@ function App() {
 
       <div className="ticks"></div>
       <section id="spacer"></section>
-    </>
-  )
+    </> }
+  )*/
 }
 
 export default App

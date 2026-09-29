@@ -60,14 +60,14 @@ export function PersonCard({ firstName, lastName, age, occupation = "Bez zawodu"
 	  { id: 2, title: "Avatar", year: 2009, rating: 8.5 }
 	]} />
 */
-export function MovieList({ movies = [] }){
-    let do_wyswietlenia = [];
-    for (const film of movies) {
-        do_wyswietlenia.push(film)
-    }
 
 
-    return (<>
-        {do_wyswietlenia}
-    </>)
+export function MovieList({ movies = [] }) {
+	return (
+		<ul>
+			{movies.map(mov => (
+				<li key={mov.id}>{mov.title}, {mov.year}, {mov.rating}</li>
+			))}
+		</ul>
+	);
 }

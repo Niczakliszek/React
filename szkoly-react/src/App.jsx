@@ -5,19 +5,30 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 
 // import Naglowek from './test'
-import { Article } from '../../Pliki rozwiazan/03-rozwiazanie'
-import { PersonCard } from '../../Pliki rozwiazan/03-rozwiazanie'
-import { MovieList } from '../../Pliki rozwiazan/03-rozwiazanie'
+
+// import { Article } from '../../Pliki rozwiazan/03-rozwiazanie'
+// import { PersonCard } from '../../Pliki rozwiazan/03-rozwiazanie'
+// import { MovieList } from '../../Pliki rozwiazan/03-rozwiazanie'
+
+//#region 04-rozwiazanie
+import { TrybKoloru } from '../../Pliki rozwiazan/04-rozwiazanie'
+import { OcenyUcznia } from '../../Pliki rozwiazan/04-rozwiazanie'
+
+//#endregion
 
 function App() {
-  return (<>
-    <Article title="React 18" author="Jan" content="React jest super!" />
-    <PersonCard firstName="Bartlomiej" lastName="Guz" age="18" occupation='dla rodzicow' />
-{/* 
-    <MovieList movies={[
+  let movies_list = [
 	    { id: 1, title: "Inception", year: 2010, rating: 8.8 },
 	    { id: 2, title: "Avatar", year: 2009, rating: 8.5 }
-	  ]} />  NIE DZIALA */}
+	  ]
+
+  return (<>
+    {/* <TrybKoloru zmienTrybFunction={zmienTrybFunction} /> */}
+    <OcenyUcznia />
+    {/* <Article title="React 18" author="Jan" content="React jest super!" />
+    <PersonCard firstName="Bartlomiej" lastName="Guz" age="18" occupation='dla rodzicow' />
+
+    <MovieList movies={movies_list} />   */}
 
 
   </>)

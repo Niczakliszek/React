@@ -13,7 +13,8 @@ import './App.css'
 //#region 04-rozwiazanie
 import { TrybKoloru } from '../../Pliki rozwiazan/04-rozwiazanie'
 import { OcenyUcznia } from '../../Pliki rozwiazan/04-rozwiazanie'
-
+import { ListaObecnosci } from '../../Pliki rozwiazan/04-rozwiazanie'
+import { DziennikOcen } from '../../Pliki rozwiazan/04-rozwiazanie'
 //#endregion
 
 function App() {
@@ -22,9 +23,17 @@ function App() {
 	    { id: 2, title: "Avatar", year: 2009, rating: 8.5 }
 	  ]
 
+    let uczniowie = [{id: 0, imie: "Bartek", obecny: false}, 
+      {id: 1, imie: "Paw", obecny: false}, 
+      {id: 2, imie: "Pyrka", obecny: true},
+      {id: 3, imie: "Dom", obecny: false}]
   return (<>
     {/* <TrybKoloru zmienTrybFunction={zmienTrybFunction} /> */}
     <OcenyUcznia />
+
+    <ListaObecnosci uczniowie_lista={uczniowie}/>
+
+    <DziennikOcen />
     {/* <Article title="React 18" author="Jan" content="React jest super!" />
     <PersonCard firstName="Bartlomiej" lastName="Guz" age="18" occupation='dla rodzicow' />
 

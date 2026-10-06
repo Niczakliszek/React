@@ -168,6 +168,7 @@ function dodajWpis(wpisy, dodawanyPrzedmiot, dodawanaOcena){
 
     if(dodawanaOcena >= 1 && dodawanaOcena <= 6){
         let dzisiejszaData = new Date().toLocaleDateString();
+        console.log(dodawanaOcena)
         return([...wpisy, {id: noweId, przedmiot: dodawanyPrzedmiot, ocena: dodawanaOcena, data: dzisiejszaData}])
     }
 
@@ -178,10 +179,12 @@ export function DziennikOcen({ wpisy_lista = [] }){
     const [wpisy, setWpisy] = useState(wpisy_lista);
     const przedmioty = [{id: 0, nazwa: "Polski"}, {id: 1, nazwa: "Matematyka"}, {id: 2, nazwa: "Historia"}, {id: 3, nazwa: "Chemia"}];
     
-    let dodawanyPrzedmiot = przedmioty[0].nazwa;
+    // let dodawanyPrzedmiot = przedmioty[0].nazwa;
+    let dodawanyPrzedmiot;
     let dodawanaOcena;
     
     return(<>
+        <button onClick={() => console.log(dodawanaOcena)} />
         <select onChange={(e) => dodawanyPrzedmiot = e.target.value}>
             {przedmioty.map(przedmiot => (
                 <option key={przedmiot.id} value={przedmiot.nazwa}>{przedmiot.nazwa}</option>

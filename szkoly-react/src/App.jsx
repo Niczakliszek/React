@@ -19,6 +19,9 @@ import { DziennikOcen } from '../../Pliki rozwiazan/04-rozwiazanie'
 
 //#region 06-rozwiazanie
 import { ZegarCyfrowy } from '../../Pliki rozwiazan/06-rozwiazanie'
+import { PowitanieZBazy } from '../../Pliki rozwiazan/06-rozwiazanie'
+import { PodgladTypowania } from '../../Pliki rozwiazan/06-rozwiazanie'
+import { OcenySzkolne } from '../../Pliki rozwiazan/06-rozwiazanie'
 //#endregion
 
 function App() {
@@ -38,6 +41,12 @@ function App() {
     <DziennikOcen /> */}
 
     <ZegarCyfrowy />
+    <br />
+    <PowitanieZBazy />
+    <br /><br /><br />
+    <PodgladTypowania />
+    <br /><br /><br />
+    <OcenySzkolne />
     </>)
 }
 

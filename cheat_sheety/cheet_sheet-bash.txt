@@ -1,0 +1,140 @@
+# Bash Cheat Sheet
+
+## Podstawowe polecenia
+
+| Polecenie | Opis |
+|-----------|------|
+| `pwd` | Wyświetl bieżący katalog |
+| `ls` | Lista plików i katalogów |
+| `ls -la` | Lista z ukrytymi plikami i szczegółami |
+| `cd <dir>` | Zmień katalog |
+| `cd ..` | Przejdź do katalogu nadrzędnego |
+| `mkdir <dir>` | Utwórz katalog |
+| `rmdir <dir>` | Usuń pusty katalog |
+| `rm <file>` | Usuń plik |
+| `rm -rf <dir>` | Usuń katalog rekurencyjnie |
+| `cp <src> <dest>` | Kopiuj plik |
+| `mv <src> <dest>` | Przenieś/zmień nazwę |
+| `touch <file>` | Utwórz pusty plik |
+| `cat <file>` | Wyświetl zawartość pliku |
+
+## Operacje na tekście
+
+| Polecenie | Opis |
+|-----------|------|
+| `grep <pattern> <file>` | Szukaj wzorca w pliku |
+| `head -n <num> <file>` | Pierwsze n linii |
+| `tail -n <num> <file>` | Ostatnie n linii |
+| `wc -l <file>` | Liczba linii |
+| `sort <file>` | Sortuj linie |
+| `uniq` | Usuń duplikaty |
+
+## Przekierowania i potoki
+
+| Symbol | Opis |
+|--------|------|
+| `>` | Przekieruj wyjście (nadpisz) |
+| `>>` | Przekieruj wyjście (dopisz) |
+| `<` | Przekieruj wejście |
+| `\|` | Potok (pipe) |
+| `2>` | Przekieruj stderr |
+| `&>` | Przekieruj stdout i stderr |
+
+## Zmienne
+
+```bash
+VAR="wartość"       # Przypisanie
+echo $VAR           # Użycie zmiennej
+export VAR          # Eksport do środowiska
+```
+
+## aliasy i funkcje
+
+```bash
+# alias
+alias mojAlias='komendy, które mają być wykonane'
+mojAlias			# Wywołanie aliasu
+
+# Funkcja bez parametrów
+funkcjaBezParametrow() {					# Deklaracja
+	# Komendy, które mają być wykonane
+	# Każda komenda musi się kończyć średnikiem
+}
+funkcjaBezParametrow						# Wywołanie
+
+# Funkcja z parametrami
+funkcjaZParametrami() {						# Deklaracja
+	# Parametry są dostępne jako $1, $2, ... $n
+}
+funkcjaZParametrami parametr1 parametr2		# Wywołanie
+```
+
+## Struktury kontrolne
+
+```bash
+# If
+if [ warunek ]; then
+	polecenia
+elif [ warunek ]; then
+	polecenia
+else
+	polecenia
+fi
+
+# Pętla for
+for i in {1..5}; do
+	echo $i
+done
+
+# Pętla while
+while [ warunek ]; do
+	polecenia
+done
+```
+
+## Warunki testowe
+
+| Test | Opis |
+|------|------|
+| `-f <file>` | Plik istnieje |
+| `-d <dir>` | Katalog istnieje |
+| `-z <str>` | String pusty |
+| `-n <str>` | String niepusty |
+| `-eq, -ne` | Równe, nierówne (liczby) |
+| `-lt, -gt` | Mniejsze, większe |
+| `=, !=` | Równe, nierówne (stringi) |
+
+## Przydatne skróty
+
+| Skrót | Opis |
+|-------|------|
+| `Ctrl+C` | Przerwij proces |
+| `Ctrl+Z` | Zawieś proces |
+| `Ctrl+R` | Szukaj w historii |
+| `!!` | Powtórz ostatnie polecenie |
+| `!$` | Ostatni argument |
+
+## Uprawnienia
+
+```bash
+chmod 755 <file>    # rwxr-xr-x
+chmod +x <file>     # Dodaj wykonywanie
+chown user:group <file>
+```
+
+## Procesy
+
+| Polecenie | Opis |
+|-----------|------|
+| `ps aux` | Lista procesów |
+| `kill <pid>` | Zakończ proces |
+| `bg` | Wznów w tle |
+| `fg` | Wznów na pierwszym planie |
+| `jobs` | Lista zadań |
+
+
+## ssh
+
+~/.ssh/						# katalog z kluczami
+eval "$(ssh-agent -s)";		# uruchomienie agenta SSH
+ssh-add ~/.ssh/github		# dodanie klucza

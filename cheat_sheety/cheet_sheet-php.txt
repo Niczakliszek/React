@@ -1,0 +1,329 @@
+# PHP Cheat Sheet
+
+## Podstawy
+
+### Tagi PHP
+<?php ?>
+<?= $zmienna ?>  // Skrócony zapis dla echo
+
+### Komentarze
+// Komentarz jednoliniowy
+# Komentarz jednoliniowy
+/* Komentarz
+	wieloliniowy */
+
+### Zmienne
+$nazwa = "wartość";
+$liczba = 10;
+$float = 10.5;
+$bool = true;
+$null = null;
+
+### Stałe
+define("NAZWA", "wartość");
+const NAZWA = "wartość";
+
+## Typy danych
+
+### Tablice
+$tablica = array(1, 2, 3);
+$tablica = [1, 2, 3];
+$asoc = ["klucz" => "wartość", "klucz2" => "wartość2"];
+
+### Operacje na tablicach
+count($tablica);
+array_push($tablica, $element);
+array_pop($tablica);
+array_merge($tab1, $tab2);
+in_array($element, $tablica);
+array_keys($tablica);
+array_values($tablica);
+sort($tablica);
+rsort($tablica);
+array_map($funkcja, $tablica);
+array_filter($tablica, $funkcja);
+
+## Operatory
+
+### Arytmetyczne
++ - * / % **
+
+### Porównania
+==   // Równe (wartość)
+===  // Identyczne (wartość i typ)
+!=   // Różne
+!==  // Nie identyczne
+<    // Mniejsze
+>    // Większe
+<=   // Mniejsze lub równe
+>=   // Większe lub równe
+<=>  // Spaceship operator
+
+### Logiczne
+&&  // AND
+||  // OR
+!   // NOT
+and or xor
+
+### Przypisania
+= += -= *= /= .= ??=
+
+### Null coalescing
+$x = $a ?? "domyślna";  // Jeśli $a jest null, użyj "domyślna"
+
+## Struktury kontrolne
+
+### If/Else
+if ($warunek) {
+	 // kod
+} elseif ($warunek2) {
+	 // kod
+} else {
+	 // kod
+}
+
+### Ternary operator
+$wynik = ($warunek) ? "tak" : "nie";
+
+### Switch
+switch ($zmienna) {
+	 case "wartość1":
+		  // kod
+		  break;
+	 case "wartość2":
+		  // kod
+		  break;
+	 default:
+		  // kod
+}
+
+### Match (PHP 8+)
+$wynik = match($zmienna) {
+	 1 => "jeden",
+	 2 => "dwa",
+	 default => "inne"
+};
+
+## Pętle
+
+### For
+for ($i = 0; $i < 10; $i++) {
+	 // kod
+}
+
+### While
+while ($warunek) {
+	 // kod
+}
+
+### Do-While
+do {
+	 // kod
+} while ($warunek);
+
+### Foreach
+foreach ($tablica as $element) {
+	 // kod
+}
+
+foreach ($tablica as $klucz => $wartosc) {
+	 // kod
+}
+
+## Funkcje
+
+### Definicja funkcji
+function nazwaFunkcji($param1, $param2 = "domyślna") {
+	 return $wynik;
+}
+
+### Funkcje strzałkowe (PHP 7.4+)
+$fn = fn($x) => $x * 2;
+
+### Funkcje anonimowe
+$funkcja = function($x) {
+	 return $x * 2;
+};
+
+### Typowanie (PHP 7+)
+function dodaj(int $a, int $b): int {
+	 return $a + $b;
+}
+
+function nullable(?string $tekst): ?string {
+	 return $tekst;
+}
+
+## Stringi
+
+### Operacje na stringach
+strlen($str);
+strtolower($str);
+strtoupper($str);
+trim($str);
+str_replace("szukaj", "zamień", $str);
+explode(",", $str);
+implode(",", $tablica);
+substr($str, 0, 5);
+strpos($str, "szukaj");
+sprintf("Witaj %s", $nazwa);
+
+### Heredoc i Nowdoc
+$tekst = <<<EOT
+Wieloliniowy
+tekst
+EOT;
+
+$tekst = <<<'EOT'
+Bez parsowania zmiennych
+EOT;
+
+## Klasy i OOP
+
+### Definicja klasy
+class Osoba {
+	 public string $imie;
+	 private int $wiek;
+	 protected $dane;
+	 
+	 public function __construct(string $imie, int $wiek) {
+		  $this->imie = $imie;
+		  $this->wiek = $wiek;
+	 }
+	 
+	 public function przedstawSie(): string {
+		  return "Jestem {$this->imie}";
+	 }
+	 
+	 public static function statyczna(): void {
+		  // metoda statyczna
+	 }
+}
+
+### Tworzenie obiektu
+$osoba = new Osoba("Jan", 25);
+echo $osoba->przedstawSie();
+
+### Dziedziczenie
+class Pracownik extends Osoba {
+	 public function __construct(string $imie, int $wiek, public string $stanowisko) {
+		  parent::__construct($imie, $wiek);
+	 }
+}
+
+### Interfejsy
+interface Drawable {
+	 public function draw(): void;
+}
+
+class Circle implements Drawable {
+	 public function draw(): void {
+		  // implementacja
+	 }
+}
+
+### Traity
+trait Loggable {
+	 public function log($msg) {
+		  echo $msg;
+	 }
+}
+
+class MyClass {
+	 use Loggable;
+}
+
+### Klasy abstrakcyjne
+abstract class Ksztalt {
+	 abstract public function pole(): float;
+}
+
+## Obsługa błędów
+
+### Try-Catch
+try {
+	 // kod który może rzucić wyjątek
+	 throw new Exception("Błąd!");
+} catch (Exception $e) {
+	 echo $e->getMessage();
+} finally {
+	 // zawsze wykonane
+}
+
+## Superglobals
+
+$_GET       // Dane z URL
+$_POST      // Dane z formularza POST
+$_REQUEST   // GET + POST + COOKIE
+$_SESSION   // Dane sesji
+$_COOKIE    // Ciasteczka
+$_FILES     // Przesłane pliki
+$_SERVER    // Informacje o serwerze
+$_ENV       // Zmienne środowiskowe
+
+## Sesje i ciasteczka
+
+### Sesje
+session_start();
+$_SESSION["user"] = "Jan";
+session_destroy();
+
+### Ciasteczka
+setcookie("nazwa", "wartość", time() + 3600);
+$_COOKIE["nazwa"];
+
+## Pliki
+
+### Operacje na plikach
+file_get_contents("plik.txt");
+file_put_contents("plik.txt", $dane);
+file_exists("plik.txt");
+fopen("plik.txt", "r");
+fread($handle, filesize("plik.txt"));
+fwrite($handle, $dane);
+fclose($handle);
+
+## Baza danych (PDO)
+
+### Połączenie
+$pdo = new PDO("mysql:host=localhost;dbname=baza", "user", "pass");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+### Zapytania
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->execute(['id' => $id]);
+$wyniki = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$wynik = $stmt->fetch(PDO::FETCH_ASSOC);
+
+## JSON
+
+json_encode($tablica);
+json_decode($json, true);  // true = tablica asocjacyjna
+
+## Data i czas
+
+date("Y-m-d H:i:s");
+time();
+strtotime("next Monday");
+
+$data = new DateTime();
+$data->format("Y-m-d");
+$data->modify("+1 day");
+
+## Przydatne funkcje
+
+isset($zmienna);
+empty($zmienna);
+var_dump($zmienna);
+print_r($zmienna);
+gettype($zmienna);
+is_array($zmienna);
+is_string($zmienna);
+is_int($zmienna);
+die("Komunikat");
+exit();
+header("Location: strona.php");
+include "plik.php";
+require "plik.php";
+include_once "plik.php";
+require_once "plik.php";

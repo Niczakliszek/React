@@ -81,7 +81,7 @@ export function PodgladTypowania(){
 
 
 	function czyPiszeFunction(){
-		console.log(czyPisze)
+		// console.log(czyPisze)
 		if (czyPisze) {
 			return (<div>Użytkownik pisze...</div>)
 		} else {
@@ -107,42 +107,52 @@ export function PodgladTypowania(){
 		- Wyświetl średnią ocen i liczbę ocen
 */
 export function OcenySzkolne(){
-	const [tablicaOcen, setTablicaOcen] = useState([])
-	const [obecnaOcena, setObecnaOcena] = useState(Number)
-	const [liczbaOcen, setLiczbaOcen] = useState(Number)
+	const [tablicaOcen, setTablicaOcen] = useState([{id: 0, wartosc: 2}, {id: 1, wartosc: 5}])
+	
+	function StworzObiektOceny(tablicaOcen, dodawanaOcena){
+		let noweId = 0;
+    	tablicaOcen.map((ocena) => {
+        	if(ocena.id <= noweId){
+            	noweId += 1;
+        	}
+    	})
 
-	useEffect(() => {
-		localStorage.setItem("tablicaOcenLocal", [...tablicaOcen, obecnaOcena]);
-	}, [tablicaOcen])
-
+		if(dodawanaOcena <= 6 && dodawanaOcena >= 1){
+			return [...tablicaOcen, {id: noweId, wartosc: dodawanaOcena}]
+		
+		}
+		return [...tablicaOcen]
+	}
 
 	function DodajOcene(){
+		const [obecnaOcena, setObecnaOcena] = useState(0)
+
+		useEffect(() => {
+			localStorage.setItem("tablicaOcenLocal", [...tablicaOcen, obecnaOcena]);
+		}, [tablicaOcen])
+
 		return(<>
 			<input type="number" onChange={(e) => setObecnaOcena(e.target.value)} />
 			<button type="button" onClick={() => {
-					setTablicaOcen(...tablicaOcen, obecnaOcena);
-					setLiczbaOcen(liczbaOcen + 1)
+					setTablicaOcen(StworzObiektOceny(tablicaOcen, obecnaOcena));	//	[{}, {}, ...]
 				}}>Dodaj ocenę</button>
 		</>)
 	}
 
-	function StatystykiOcen(){
-		return(<ul>
+	function StatystykiOcen() {
+		console.log('tablicaOcen:', tablicaOcen)
+		return (<ul>
 			{
-				() => {
-					if(liczbaOcen != 0){
-						tablicaOcen.map(ocena => (
-							<li>{ocena}</li>
-						))
-					}
-				}
+				tablicaOcen.map((ocena) => {
+					return (<li key={ocena.id}>{ocena.wartosc}</li>)
+				})
 			}
 		</ul>)
 	}
 
-	return(<div>
-			<DodajOcene />
-			<StatystykiOcen />
-			</div>)
+	return (<div>
+		<DodajOcene />
+		<StatystykiOcen />
+	</div>)
 
 }

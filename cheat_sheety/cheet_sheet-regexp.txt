@@ -1,0 +1,66 @@
+https://regexr.com/		Walidator RegExp online
+
+---------- kwantyfikatory ----------
+rozpoczynają się od '\'
+\d	jeden znak z zakresu '0123456789'
+\D	odwrotność \d - jeden znak, który nie jest \d
+\w	jeden znak z zakresu '\d', 'a-z' i 'A-Z', bez znaków diakrytycznych
+\W	odwrotność \w
+\s	jeden biały znak (\n, \t, spacja itp)
+\S	odwrotność \s
+\X	odwołanie się do grupy X wewnątrz zapytania (patrz weryfikacja maila)
+
+---------- znaki specjalne ----------
+.	jeden dowolny znak
+?	element poprzedzający może wystąpić, ale nie musi
+	np. 'elements?' - pasuje 'element' i 'elements'
+*	zero lub więcej powtórzeń
+	np. 'elements*' - pasuje 'element', 'elements' i  'elementssssssssss'
++	minimum jedno powtórzenie
+	np. 'elements' - pasuje 'elements' i  'elementssssssssss'
+^	negacja
+	np. [^\s,;] - wszystko poza białymi znakami, przecinkiem i średnikiem
+	znak '^' musi być na początku zakresu
+	[^\s] === \S
+{5}		powtórzenie dokładnie 5 razy
+	np. 'elements{5}' - pasuje 'elementsssss'
+{5,}		powtórzenie min 5 razy
+	np. 'elements{5,}' - pasuje 'elementsssss' i  'elementssssssssss'
+{,5}		powtórzenie max 5 razy
+	np. 'elements{,5}' - pasuje 'elements' i  'elementsssss'
+{2,5}		powtórzenie od 2 do 5 razy
+	np. 'elements{2,5}' - pasuje 'elementss', 'elementsss', ..., 'elementsssss'
+
+---------- zakresy ----------
+wybierz z zakresu podanego w '[]'
+	np. [\w.,] - wybierz z '\w', '.', ','
+myślnik zawsze musi być na końcu
+	np. [\w.,-]
+
+---------- grupy ----------
+grupy zawierają się w '()'
+	np. (element)(s?)	-	grupa-1 'element', grupa-2 's'
+\1	odwołanie się do grupy wewnątrz wyrażenia
+	(\n[^\n]+)\1\n - sprawdzanie zdublowanych linii
+		1. grupa to enter '\n' i znaki do końca linii '[^\n]'
+		2. powtórzenie grupy '\1'
+		3. '\n', żeby mieć pewność, że obie linie sa takie same i nie ma dodatkowych znaków na końcu drugiej linii
+|
+	oddzielenie elementów grupy - wybór jednej opcji z wielu
+	(ala|ma|kota) - 'ala' lub 'ma' lub 'kota'
+
+---------- przelaczniki ----------
+/wyrazenie-regularne/przelacznik
+i	ignoruj wielkość liter
+	/[almkot ]*/i	'Ala Makota'
+g	szukaj globalnie (w wielu liniach)
+
+---------- life hack ----------
+[\s\S]+		wyszukiwanie wszystkiego wielowierszowo
+
+---------- sprawdzanie kwoty ----------
+sprawdzanie liczby z dwoma miejscami po przecinku (również ujemnej)
+	-?\d+[.,]\d{2} (pln|z[lł])
+
+---------- sprawdzanie maila ----------
+[\w.+-]@\w+(-\w+)?(\.[a-z]{2,3})\1?

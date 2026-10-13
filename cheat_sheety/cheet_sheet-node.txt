@@ -1,0 +1,301 @@
+================================================================================
+						 NODE.JS CHEAT SHEET
+================================================================================
+
+--------------------------------------------------------------------------------
+PODSTAWY
+--------------------------------------------------------------------------------
+
+# Sprawdzenie wersji
+node -v
+npm -v
+
+# Uruchomienie pliku
+node app.js
+
+# Inicjalizacja projektu
+npm init
+npm init -y          # z domyślnymi ustawieniami
+
+--------------------------------------------------------------------------------
+NPM - ZARZĄDZANIE PAKIETAMI
+--------------------------------------------------------------------------------
+
+# Instalacja pakietów
+npm install <pakiet>           # lokalna instalacja
+npm install <pakiet> -g        # globalna instalacja
+npm install <pakiet> --save    # zapis do dependencies
+npm install <pakiet> --save-dev # zapis do devDependencies
+npm i <pakiet>                 # skrót
+
+# Usuwanie pakietów
+npm uninstall <pakiet>
+npm remove <pakiet>
+
+# Aktualizacja
+npm update
+npm update <pakiet>
+
+# Lista zainstalowanych pakietów
+npm list
+npm list -g --depth=0
+
+--------------------------------------------------------------------------------
+MODUŁY - REQUIRE / IMPORT
+--------------------------------------------------------------------------------
+
+// CommonJS (domyślny)
+const fs = require('fs');
+const { readFile } = require('fs');
+const myModule = require('./myModule');
+
+// ES Modules (wymaga "type": "module" w package.json)
+import fs from 'fs';
+import { readFile } from 'fs';
+import myModule from './myModule.js';
+
+// Eksportowanie - CommonJS
+module.exports = myFunction;
+module.exports = { func1, func2 };
+exports.myFunc = myFunction;
+
+// Eksportowanie - ES Modules
+export default myFunction;
+export { func1, func2 };
+
+--------------------------------------------------------------------------------
+FILE SYSTEM (fs)
+--------------------------------------------------------------------------------
+
+const fs = require('fs');
+const fsPromises = require('fs').promises;
+
+// Odczyt pliku - synchroniczny
+const data = fs.readFileSync('plik.txt', 'utf8');
+
+// Odczyt pliku - asynchroniczny (callback)
+fs.readFile('plik.txt', 'utf8', (err, data) => {
+	if (err) throw err;
+	console.log(data);
+});
+
+// Odczyt pliku - Promise
+const data = await fsPromises.readFile('plik.txt', 'utf8');
+
+// Zapis do pliku
+fs.writeFileSync('plik.txt', 'treść');
+fs.writeFile('plik.txt', 'treść', (err) => {});
+await fsPromises.writeFile('plik.txt', 'treść');
+
+// Dopisywanie do pliku
+fs.appendFileSync('plik.txt', 'dodatkowa treść');
+
+// Usuwanie pliku
+fs.unlinkSync('plik.txt');
+
+// Tworzenie katalogu
+fs.mkdirSync('folder');
+fs.mkdirSync('folder/subfolder', { recursive: true });
+
+// Lista plików w katalogu
+const files = fs.readdirSync('./');
+
+// Sprawdzenie czy plik istnieje
+fs.existsSync('plik.txt');
+
+--------------------------------------------------------------------------------
+PATH - ŚCIEŻKI
+--------------------------------------------------------------------------------
+
+const path = require('path');
+
+path.join('/folder', 'plik.txt')     // /folder/plik.txt
+path.resolve('plik.txt')             // pełna ścieżka
+path.basename('/folder/plik.txt')    // plik.txt
+path.dirname('/folder/plik.txt')     // /folder
+path.extname('plik.txt')             // .txt
+path.parse('/folder/plik.txt')       // { root, dir, base, ext, name }
+
+__dirname    // ścieżka do bieżącego katalogu
+__filename   // ścieżka do bieżącego pliku
+
+--------------------------------------------------------------------------------
+HTTP SERVER
+--------------------------------------------------------------------------------
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'text/plain');
+	res.end('Hello World!');
+});
+
+server.listen(3000, () => {
+	console.log('Serwer działa na http://localhost:3000');
+});
+
+--------------------------------------------------------------------------------
+EXPRESS.JS - PODSTAWY
+--------------------------------------------------------------------------------
+
+const express = require('express');
+const app = express();
+
+// Middleware
+app.use(express.json());                    // parsowanie JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));          // pliki statyczne
+
+// Routing
+app.get('/', (req, res) => {
+	res.send('Hello World!');
+});
+
+app.get('/users/:id', (req, res) => {
+	const id = req.params.id;               // parametr URL
+	const query = req.query;                // query string
+	res.json({ id, query });
+});
+
+app.post('/users', (req, res) => {
+	const body = req.body;                  // ciało żądania
+	res.status(201).json(body);
+});
+
+app.put('/users/:id', (req, res) => {});
+app.delete('/users/:id', (req, res) => {});
+
+// Uruchomienie
+app.listen(3000, () => console.log('Serwer na porcie 3000'));
+
+--------------------------------------------------------------------------------
+ASYNC/AWAIT & PROMISES
+--------------------------------------------------------------------------------
+
+// Promise
+const myPromise = new Promise((resolve, reject) => {
+	setTimeout(() => resolve('sukces'), 1000);
+});
+
+myPromise
+	.then(result => console.log(result))
+	.catch(err => console.error(err))
+	.finally(() => console.log('koniec'));
+
+// Async/Await
+async function fetchData() {
+	try {
+		const result = await myPromise;
+		console.log(result);
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+// Promise.all - równoległe wykonanie
+const results = await Promise.all([promise1, promise2, promise3]);
+
+--------------------------------------------------------------------------------
+EVENTS
+--------------------------------------------------------------------------------
+
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+// Nasłuchiwanie
+emitter.on('event', (data) => {
+	console.log('Otrzymano:', data);
+});
+
+// Emitowanie
+emitter.emit('event', { message: 'Hello' });
+
+// Jednorazowe nasłuchiwanie
+emitter.once('event', callback);
+
+--------------------------------------------------------------------------------
+PROCESS
+--------------------------------------------------------------------------------
+
+process.env.NODE_ENV          // zmienna środowiskowa
+process.argv                  // argumenty wiersza poleceń
+process.cwd()                 // bieżący katalog roboczy
+process.exit(0)               // zakończenie procesu
+process.pid                   // ID procesu
+
+// Obsługa sygnałów
+process.on('SIGINT', () => {
+	console.log('Przerwanie...');
+	process.exit();
+});
+
+--------------------------------------------------------------------------------
+DOTENV - ZMIENNE ŚRODOWISKOWE
+--------------------------------------------------------------------------------
+
+# Instalacja
+npm install dotenv
+
+# Plik .env
+PORT=3000
+DB_HOST=localhost
+SECRET_KEY=tajny_klucz
+
+# Użycie
+require('dotenv').config();
+const port = process.env.PORT;
+
+--------------------------------------------------------------------------------
+POPULARNE PAKIETY
+--------------------------------------------------------------------------------
+
+express      - framework webowy
+mongoose     - ODM dla MongoDB
+sequelize    - ORM dla SQL
+axios        - klient HTTP
+lodash       - narzędzia do manipulacji danymi
+moment       - obsługa dat (lub dayjs)
+bcrypt       - hashowanie haseł
+jsonwebtoken - JWT tokeny
+cors         - obsługa CORS
+helmet       - bezpieczeństwo HTTP
+nodemon      - auto-restart w development
+jest/mocha   - testowanie
+winston      - logowanie
+
+--------------------------------------------------------------------------------
+DEBUGOWANIE
+--------------------------------------------------------------------------------
+
+# Uruchomienie z debuggerem
+node --inspect app.js
+node --inspect-brk app.js    # zatrzymanie na początku
+
+# Console
+console.log('info');
+console.error('błąd');
+console.warn('ostrzeżenie');
+console.table([{a: 1}, {a: 2}]);
+console.time('label');
+console.timeEnd('label');
+
+--------------------------------------------------------------------------------
+PACKAGE.JSON - SKRYPTY
+--------------------------------------------------------------------------------
+
+{
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js",
+		"test": "jest",
+		"build": "tsc"
+	}
+}
+
+# Uruchamianie
+npm start
+npm run dev
+npm test
+
+================================================================================

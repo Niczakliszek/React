@@ -634,3 +634,45 @@ function OdliczanieDoDzwonka() {
 	- Jeśli używasz zmiennej wewnątrz useEffect, dodaj ją do tablicy zależnosci
 */
 // #endregion
+
+
+/*
+export function OcenySzkolne(){
+	const [tablicaOcen, setTablicaOcen] = useState([{id: 0, wartosc: 2}, {id: 1, wartosc: 5}])
+	const [liczbaOcen, setLiczbaOcen] = useState(0)
+	
+
+	function DodajOcene(){
+		const [obecnaOcena, setObecnaOcena] = useState(0)
+
+		useEffect(() => {
+			localStorage.setItem("tablicaOcenLocal", [...tablicaOcen, obecnaOcena]);
+		}, [tablicaOcen])
+
+		return(<>
+			<input type="number" onChange={(e) => setObecnaOcena(e.target.value)} />
+			<button type="button" onClick={() => {
+					setTablicaOcen([...tablicaOcen, obecnaOcena]);	//	[{}, {}, ...]
+					setLiczbaOcen(liczbaOcen + 1)
+				}}>Dodaj ocenę</button>
+		</>)
+	}
+
+	function StatystykiOcen() {
+		console.log('tablicaOcen:', tablicaOcen)
+		return (<ul>
+			{
+				tablicaOcen.map((ocena) => {
+					return (<li key={ocena.id}>{ocena.wartosc}</li>)
+				})
+			}
+		</ul>)
+	}
+
+	return (<div>
+		<DodajOcene />
+		<StatystykiOcen />
+	</div>)
+
+}
+*/

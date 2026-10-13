@@ -1,0 +1,476 @@
+===========================================
+	JAVASCRIPT CHEAT SHEET
+===========================================
+
+-------------------------------------------
+ZMIENNE
+-------------------------------------------
+var nazwa = "wartość";      // zasięg funkcji/całego pliku (stary sposób)
+let nazwa = "wartość";      // zasięg blokowy (np. wewnątrz if), można zmieniać
+const NAZWA = "wartość";    // zasięg blokowy (np. wewnątrz if), stała
+
+-------------------------------------------
+TYPY DANYCH
+-------------------------------------------
+string      "tekst" lub 'tekst' lub `template ${zmienna}`
+number      42, 3.14, NaN, Infinity
+boolean     true, false
+null        null (brak wartości)
+undefined   undefined (niezdefiniowana)
+object      { klucz: "wartość" }
+array       [1, 2, 3]
+symbol      Symbol("opis")
+bigint      123n
+
+-------------------------------------------
+OPERATORY
+-------------------------------------------
+Arytmetyczne:   +  -  *  /  %  **  ++  --
+Przypisania:    =  +=  -=  *=  /=  %=
+Porównania:     ==  ===  !=  !==  >  <  >=  <=
+Logiczne:       &&  ||  !  ??
+Trójargumentowy: warunek ? prawda : fałsz
+
+-------------------------------------------
+STRINGI
+-------------------------------------------
+let str = "Hello World";
+str.length                  // długość
+str.toUpperCase()           // HELLO WORLD
+str.toLowerCase()           // hello world
+str.indexOf("World")        // 6
+str.includes("Hello")       // true
+str.slice(0, 5)             // "Hello"
+str.split(" ")              // ["Hello", "World"]
+str.replace("World", "JS")  // "Hello JS"
+str.trim()                  // usuwa białe znaki
+
+Template literals:
+`Cześć ${imie}, masz ${wiek} lat`
+
+-------------------------------------------
+TABLICE (ARRAYS)
+-------------------------------------------
+let arr = [1, 2, 3, 4, 5];
+
+arr.length                  // 5
+arr.push(6)                 // dodaj na koniec
+arr.pop()                   // usuń z końca
+arr.unshift(0)              // dodaj na początek
+arr.shift()                 // usuń z początku
+arr.indexOf(3)              // 2
+arr.includes(3)             // true
+arr.slice(1, 3)             // [2, 3]
+arr.splice(1, 2)            // usuń 2 elementy od indeksu 1
+arr.concat([6, 7])          // połącz tablice
+arr.join(", ")              // "1, 2, 3, 4, 5"
+arr.reverse()               // odwróć
+arr.sort()                  // sortuj
+
+// Metody iteracyjne
+arr.forEach(el => console.log(el))
+arr.find(el => el > 2)          // 3
+arr.findIndex(el => el > 2)     // 2
+arr.reduce((acc, el) => acc + el, 0)  // 15
+arr.every(el => el > 0)         // true
+arr.some(el => el > 4)          // true
+arr.map(el => el * 2)           // [2, 4, 6, 8, 10]
+arr.filter(el => el > 2)        // [3, 4, 5]
+
+// Spread operator
+let arr2 = [...arr, 6, 7];
+
+// Klasa Map - tablica asocjacyjna (słownik)
+mapa = new Map()			// tworzenie
+mapa.size					// ilość elementów
+mapa.set('Ala', 'Makota')	// dodawanie nowej wartości
+mapa.has('Ala')				// sprawdzanie, czy istnieje klucz 'Ala'
+mapa.delete('Ala')			// usunięcie klucza 'Ala'
+mapa.get('Ala')				// pobranie wartości dla klucza 'Ala'
+mapa.clear()				// usuwanie wszystkich elementów
+mapa.keys()					// zwraca iterator do listy kluczy
+mapa.values()				// zwraca iterator do listy wartości
+mapa.foreach((value, key, mapa) => { ... })		// iterowanie po wszystkich elementach mapy
+
+// Klasa Set - tablica zwykła
+zestaw = new Set()			// tworzenie
+zestaw.size					// ilość elementów
+zestaw.add(wartosc)			// dodawanie nowej wartości
+zestaw.has(wartosc)			// sprawdzanie, czy istnieje wartość
+zestaw.delete(wartosc)		// usunięcie wartości
+zestaw.clear()				// usuwanie wszystkich elementów
+zestaw.values()				// pobranie wszystkich wartości
+zestaw.foreach((value1, value2, zestaw) => { ... })		// iterowanie po wszystkich elementach zestawu
+
+-------------------------------------------
+OBIEKTY
+-------------------------------------------
+let osoba = {
+	imie: "Jan",
+	wiek: 30,
+	powitaj: function() {
+	return `Cześć, jestem ${this.imie}`;
+	}
+};
+
+osoba.imie                  // "Jan"
+osoba["wiek"]               // 30
+osoba.miasto = "Warszawa";  // dodaj właściwość
+delete osoba.wiek;          // usuń właściwość
+
+Object.keys(osoba)          // ["imie", "wiek", "powitaj"]
+Object.values(osoba)        // wartości
+Object.entries(osoba)       // pary [klucz, wartość]
+Object.assign({}, osoba)    // kopiuj obiekt
+
+// Destrukturyzacja
+const { imie, wiek } = osoba;
+
+// Operator resztowy (spread operator)
+const osoba2 = { ...osoba, miasto: "Kraków" };
+
+-------------------------------------------
+FUNKCJE
+-------------------------------------------
+// Deklaracja funkcji
+function nazwa(param1, param2) {
+	return param1 + param2;
+}
+
+// Wyrażenie funkcyjne
+const nazwa = function(param1, param2) {
+	return param1 + param2;
+};
+
+// funkcje strzałkowe
+const nazwa = (param1, param2) => {
+	return param1 + param2;
+};
+const kwadrat = (x) => {
+	return x * x;
+};
+
+// Parametry domyślne
+function powitaj(imie = "Gość") {
+	return `Cześć ${imie}`;
+}
+
+-------------------------------------------
+WARUNKI
+-------------------------------------------
+if (warunek) {
+	// kod
+} else if (innyWarunek) {
+	// kod
+} else {
+	// kod
+}
+
+switch (wyrażenie) {
+	case wartość1:
+	// kod
+	break;
+	case wartość2:
+	// kod
+	break;
+	default:
+	// kod
+}
+
+// Ternary operator
+const wynik = warunek ? "tak" : "nie";
+
+// Nullish coalescing
+const nazwa = null ?? "domyślna";  // "domyślna"
+
+// Optional chaining
+const miasto = osoba?.adres?.miasto;
+
+-------------------------------------------
+PĘTLE
+-------------------------------------------
+// for
+for (let i = 0; i < 5; i++) {
+	console.log(i);
+}
+
+// while
+while (warunek) {
+	// kod
+}
+
+// do...while
+do {
+	// kod
+} while (warunek);
+
+// for...of (tablice, stringi)
+for (const element of tablica) {
+	console.log(element);
+}
+for (const [klucz, wartosc] of obiekt)) {
+	console.log(klucz, ': ', wartosc);
+}
+
+// for...in (obiekty)
+for (const klucz in obiekt) {
+	console.log(klucz, obiekt[klucz]);
+}
+
+// break i continue
+break;      // przerywa pętlę
+continue;   // przeskakuje do następnej iteracji
+
+-------------------------------------------
+KLASY
+-------------------------------------------
+class Osoba {
+	constructor(imie, wiek) {
+		this.imie = imie;
+		this.wiek = wiek;
+	}
+
+	powitaj() {
+		return `Cześć, jestem ${this.imie}`;
+	}
+
+	static opis() {
+	return "To jest klasa Osoba";
+	}
+
+	get info() {
+		return `${this.imie}, ${this.wiek} lat`;
+	}
+
+	set noweImie(imie) {
+		this.imie = imie;
+	}
+}
+
+// Dziedziczenie
+class Student extends Osoba {
+	constructor(imie, wiek, kierunek) {
+		super(imie, wiek);
+		this.kierunek = kierunek;
+	}
+}
+
+const jan = new Osoba("Jan", 30);
+
+-------------------------------------------
+PROMISES & ASYNC/AWAIT
+-------------------------------------------
+// Promise
+const promise = new Promise((resolve, reject) => {
+	if (sukces) {
+		resolve("Dane");
+	} else {
+		reject("Błąd");
+	}
+});
+
+promise
+	.then(dane => console.log(dane))
+	.catch(błąd => console.error(błąd))
+	.finally(() => console.log("Zakończono"));
+
+// Async/Await
+async function pobierzDane() {
+	try {
+		const response = await fetch(url);
+		const dane = await response.json();
+		return dane;
+	} catch (błąd) {
+		console.error(błąd);
+	}
+}
+
+// Promise.all - wszystkie równolegle
+const wyniki = await Promise.all([promise1, promise2]);
+
+// Promise.race - pierwszy zakończony
+const pierwszy = await Promise.race([promise1, promise2]);
+
+-------------------------------------------
+FETCH API
+-------------------------------------------
+// GET
+fetch('https://api.example.com/data')
+	.then(response => response.json())
+	.then(data => console.log(data))
+	.catch(error => console.error(error));
+
+// POST
+fetch('https://api.example.com/data', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({ klucz: 'wartość' })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+
+-------------------------------------------
+DOM MANIPULATION
+-------------------------------------------
+// Selekcja elementów
+document.getElementById('id')
+document.getElementsByClassName('klasa')
+document.getElementsByTagName('div')
+document.querySelector('.klasa')
+document.querySelectorAll('.klasa')
+
+// Modyfikacja elementów
+element.innerHTML = '<p>HTML</p>';
+element.textContent = 'Tekst';
+element.setAttribute('attr', 'wartość');
+element.getAttribute('attr');
+element.removeAttribute('attr');
+element.classList.add('klasa');
+element.classList.remove('klasa');
+element.classList.toggle('klasa');
+element.classList.contains('klasa');
+element.style.color = 'red';
+
+// Tworzenie/usuwanie elementów
+const div = document.createElement('div');
+parent.appendChild(div);
+parent.removeChild(div);
+element.remove();
+parent.insertBefore(nowy, referencja);
+
+-------------------------------------------
+EVENTY
+-------------------------------------------
+element.addEventListener('click', funkcja);
+element.removeEventListener('click', funkcja);
+
+// Popularne eventy
+click, dblclick, mouseenter, mouseleave
+keydown, keyup, keypress
+submit, change, input, focus, blur
+load, DOMContentLoaded, resize, scroll
+
+// Event object
+element.addEventListener('click', (event) => {
+	event.preventDefault();     // zapobiega domyślnej akcji
+	event.stopPropagation();    // zatrzymuje propagację
+	event.target                // element który wywołał event
+	event.currentTarget         // element z listenerem
+});
+
+-------------------------------------------
+LOCAL STORAGE / SESSION STORAGE
+-------------------------------------------
+localStorage.setItem('klucz', 'wartość');
+localStorage.getItem('klucz');
+localStorage.removeItem('klucz');
+localStorage.clear();
+
+// Przechowywanie obiektów
+localStorage.setItem('dane', JSON.stringify(obiekt));
+const dane = JSON.parse(localStorage.getItem('dane'));
+
+// sessionStorage - tak samo, ale kasowane po zamknięciu karty
+
+-------------------------------------------
+JSON
+-------------------------------------------
+JSON.stringify(obiekt)      // obiekt -> string
+JSON.parse(string)          // string -> obiekt
+
+-------------------------------------------
+DATE
+-------------------------------------------
+const teraz = new Date();
+const data = new Date('2024-01-15');
+const data2 = new Date(2024, 0, 15);  // miesiące od 0
+
+teraz.getFullYear()         // rok
+teraz.getMonth()            // miesiąc (0-11)
+teraz.getDate()             // dzień miesiąca
+teraz.getDay()              // dzień tygodnia (0-6)
+teraz.getHours()            // godziny
+teraz.getMinutes()          // minuty
+teraz.getSeconds()          // sekundy
+teraz.getTime()             // timestamp
+teraz.toISOString()         // format ISO
+teraz.toLocaleDateString()  // lokalna data
+
+-------------------------------------------
+MATH
+-------------------------------------------
+Math.PI                     // 3.14159...
+Math.round(4.5)             // 5
+Math.floor(4.9)             // 4
+Math.ceil(4.1)              // 5
+Math.abs(-5)                // 5
+Math.min(1, 2, 3)           // 1
+Math.max(1, 2, 3)           // 3
+Math.random()               // 0-1
+Math.pow(2, 3)              // 8
+Math.sqrt(16)               // 4
+
+// Losowa liczba z zakresu
+Math.floor(Math.random() * (max - min + 1)) + min
+
+-------------------------------------------
+TIMERY
+-------------------------------------------
+// Wykonaj po czasie
+const timeoutId = setTimeout(() => {
+	console.log('Po 2 sekundach');
+}, 2000);
+clearTimeout(timeoutId);
+
+// Wykonuj co jakiś czas
+const intervalId = setInterval(() => {
+	console.log('Co sekundę');
+}, 1000);
+clearInterval(intervalId);
+
+-------------------------------------------
+TRY/CATCH
+-------------------------------------------
+try {
+	// kod który może rzucić błąd
+	throw new Error('Własny błąd');
+} catch (error) {
+	console.error(error.message);
+} finally {
+	// zawsze się wykona
+}
+
+-------------------------------------------
+MODUŁY ES6
+-------------------------------------------
+// Eksport
+export const zmienna = 'wartość';
+export function funkcja() {}
+export default class Klasa {}
+
+// Import
+import Klasa from './plik.js';
+import { zmienna, funkcja } from './plik.js';
+import * as modul from './plik.js';
+
+-------------------------------------------
+PRZYDATNE SKRÓTY
+-------------------------------------------
+console.log()               // wypisz
+console.error()             // błąd
+console.warn()              // ostrzeżenie
+console.table()             // tabela
+console.time() / timeEnd()  // pomiar czasu
+
+typeof zmienna              // typ zmiennej
+instanceof                  // sprawdź instancję
+Array.isArray(arr)          // czy tablica
+
+// Konwersje typów
+String(123)                 // "123"
+Number("123")               // 123
+Boolean(1)                  // true
+parseInt("123")             // 123
+parseFloat("12.34")         // 12.34

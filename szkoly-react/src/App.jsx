@@ -29,8 +29,14 @@ import { KartaKlasy, ListaPrzedmiotow } from '../../Pliki rozwiazan/08-rozwiazan
 import { DziennikOcen } from '../../Pliki rozwiazan/08-rozwiazanie'
 //#endregion
 
+//#region 09-rozwiazanie
+import { SchoolNameProvider } from '../../Pliki rozwiazan/09-rozwiazanie'
+import { StudentInfo } from '../../Pliki rozwiazan/09-rozwiazanie'
+import { StudentProvider } from '../../Pliki rozwiazan/09-rozwiazanie'
+//#endregion
 
 function App() {
+  //#region Stare Zmienne
   let movies_list = [
 	    { id: 1, title: "Inception", year: 2010, rating: 8.8 },
 	    { id: 2, title: "Avatar", year: 2009, rating: 8.5 }
@@ -53,8 +59,11 @@ function App() {
     {id: 2, przedmiot: "Matematyka", ocena: 3, data: new Date().toLocaleDateString()},
     {id: 3, przedmiot: "Chemia", ocena: 2, data: new Date().toLocaleDateString()},
     {id: 4, przedmiot: "Angielski", ocena: 6, data: new Date().toLocaleDateString()},
-    {id: 5, przedmiot: "Fizyka", ocena: 4, data: new Date().toLocaleDateString()}
+    {id: 5, przedmiot: "Fizyka", ocena: 4, data: new Date().toLocaleDateString()},
+    {id: 6, przedmiot: "Polski", ocena: 3, data: new Date().toLocaleDateString()}
   ]
+  //#endregion
+  
   return (<>
     {/* <TrybKoloru zmienTrybFunction={zmienTrybFunction} /> */}
     {/* <OcenyUcznia />
@@ -69,12 +78,16 @@ function App() {
     <br /><br /><br />
     <OcenySzkolne /> */}
 
-    <ListaPrzedmiotow />
+    {/* <ListaPrzedmiotow />
     <br /><br />
     <KartaKlasy tablicaObiektowUczniow = {uczniowie2} />
     <br /><br />
-    <DziennikOcen tablicaOcenParam={oceny}/>
+    <DziennikOcen tablicaOcenParam={oceny}/> */}
 
+      <StudentProvider>
+        <StudentInfo />
+      </StudentProvider>
+      <br />
     </>)
 }
 

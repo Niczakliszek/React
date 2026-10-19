@@ -91,12 +91,35 @@ export function KartaKlasy({ tablicaObiektowUczniow = [] }) {
 */
 export function DziennikOcen({ tablicaOcenParam = [] }) {
     const [tablicaOcen, setTablicaOcen] = useState(tablicaOcenParam);
+    const [wyswietlaneOceny, setWyswietlaneOceny] = useState(tablicaOcen)
+    const [sredniaOcen, setSredniaOcen] = useState(1)
+    const [wybranyPrzedmiot, setWybranyPrzedmiot] = useState("Wszystkie")
+
+    const listaPrzedmiotow = [{id: 1, nazwa: "Polski"}, {id: 2, nazwa: "Matematyka"}, {id: 3, nazwa: "Chemia"}, {id: 4, nazwa: "Angielski"}, {id: 5, nazwa:"Fizyka"}];
+
+
+    useEffect( () => {
+        if(wybranyPrzedmiot == "Wszystkie"){
+            setWyswietlaneOceny( tablicaOcen )
+        } else{
+            setWyswietlaneOceny( tablicaOcen.filter( (ocena) => ocena.przedmiot == wybranyPrzedmiot) )
+        }
+    }, [wybranyPrzedmiot])
 
     return (<div>
+        <hr />
+        <select onChange={(e) => setWybranyPrzedmiot(e.target.value)}>
+            <option key={0} value={"Wszystkie"}>Wszystkie</option>
+            {
+                listaPrzedmiotow.map( (przedmiot) => {
+                    return (<option key={przedmiot.id} value={przedmiot.nazwa}>{przedmiot.nazwa}</option>)
+                })
+            }
+        </select>
         <ul>
             {
-                tablicaOcen.map( (ocena) => {
-                    return (<li key={ocena.id}>{ocena.ocena}</li>)
+                wyswietlaneOceny.map( (ocena) => {
+                    return (<li key={ocena.id}>{ocena.ocena}, {ocena.przedmiot}</li>)
                 })
             }
         </ul>

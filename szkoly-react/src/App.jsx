@@ -33,6 +33,15 @@ import { DziennikOcen } from '../../Pliki rozwiazan/08-rozwiazanie'
 import { SchoolNameProvider } from '../../Pliki rozwiazan/09-rozwiazanie'
 import { StudentInfo } from '../../Pliki rozwiazan/09-rozwiazanie'
 import { StudentProvider } from '../../Pliki rozwiazan/09-rozwiazanie'
+import { ClassChanger } from '../../Pliki rozwiazan/09-rozwiazanie'
+import { GradesProvider, AddGradeForm } from '../../Pliki rozwiazan/09-rozwiazanie'
+import { UserProvider, GradesList } from '../../Pliki rozwiazan/09-rozwiazanie'
+//#endregion
+
+//#region  10-rozwiazanie
+import { FormularzImienia } from '../../Pliki rozwiazan/10-rozwiazanie'
+import { SystemSzkoly } from '../../Pliki rozwiazan/10-rozwiazanie'
+import { RejestracjaZWalidacja } from '../../Pliki rozwiazan/10-rozwiazanie'
 //#endregion
 
 function App() {
@@ -84,10 +93,25 @@ function App() {
     <br /><br />
     <DziennikOcen tablicaOcenParam={oceny}/> */}
 
-      <StudentProvider>
-        <StudentInfo />
-      </StudentProvider>
-      <br />
+    {/* <StudentProvider>
+      <StudentInfo />
+      <ClassChanger />
+    </StudentProvider>
+    <br /> */}
+
+      {/* <GradesProvider >
+        <UserProvider >
+          <AddGradeForm />
+            <br />
+          <GradesList />
+        </UserProvider>
+      </GradesProvider> */}
+
+      <FormularzImienia />
+        <br /><br />
+      <SystemSzkoly />
+        <br /><br />
+      <RejestracjaZWalidacja />
     </>)
 }
 
